@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <button id="btn">点击弹出遮罩层</button>
+</body>
+<script>
+    
+    function Alert(){
+        this.btn=document.getElementById('btn')
+        this.mark();
+    }
+    Alert.prototype = {
+        constructor:Alert,
+        mark:function(){
+            var that = this;
+            this.btn.onclick=function(){
+            that.mark = document.createElement('div');
+            that.mark.className = 'mark';
+            document.body.appendChild(that.mark);
+            that.box();
+           }
+        },
+        box:function(){
+            var that = this;
+            this.dv = document.createElement('div');
+            this.dv.className = "dv";
+            this.dv.innerHTML = `<p>确定要登陆吗？</p><p><button id='yes'>确定</button><button id='no'>取消</button></p>`
+            this.mark.appendChild(this.dv);
+            that.delclick(); 
+            that.noclick(); 
+        },
+        delclick:function(){
+            var that = this;
+            this.yes = document.getElementById('yes');
+            this.yes.onclick = function(){
+               document.body.removeChild(that.mark) 
+            }
+        },
+        noclick:function(){
+            var that = this;
+            this.no = document.getElementById('no');
+            this.no.onclick = function(){
+                document.body.removeChild(that.mark) 
+            } 
+        }
+    }
+    
+    new Alert();
+    
+</script>
+</html>
